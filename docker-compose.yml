@@ -1,0 +1,89 @@
+version: '2'
+services:
+## ---- mongo containers ----
+#  mongo:
+#    image: mongo:5.0.3 # latest version for MongoDB Atlas
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - ./api_mongo/mock/mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: password
+#      MONGO_INITDB_DATABASE: example
+#      TZ: Asia/Tokyo
+#
+#  api-mongo:
+#    build:
+#      context: .
+#      dockerfile: api_mongo/Dockerfile
+#    env_file:
+#      - ./api_mongo/.env
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mongo
+#
+#  react-app:
+#    build:
+#      context: ./react
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./react:/react
+#      - react-node-modules:/react/app/node_modules
+#    ports:
+#      - "3001:3001"
+
+### --- unused ---
+#  react-app-relay:
+#    build:
+#      context: ./react-app-relay
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./react-app-relay:/react
+#      - react-node-modules-relay:/react/app/node_modules
+#    ports:
+#      - "3002:3002"
+### ---- mongo containers ----
+
+### ---- mysql containers ----
+  mysql8:
+    build:
+      context: ./api_mysql/mock/mysql/
+    ports:
+      - "3306:3306"
+#      - "33060:33060" # X API
+    volumes:
+      - ./api_mysql/mock/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: hoge123
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+
+  api-mysql:
+    build:
+      context: .
+      dockerfile: api_mysql/Dockerfile
+    env_file:
+      - ./api_mysql/.env
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql8
+
+  react-app-mysql:
+    build:
+      context: ./react-app-mysql
+      dockerfile: Dockerfile
+    volumes:
+      - ./react-app-mysql:/react
+      - react-node-modules-mysql:/react/app/node_modules
+    ports:
+      - "3003:3003"
+### ---- mysql containers ----
+
+
+volumes:
+#  react-node-modules:
+#  react-node-modules-relay:
+  react-node-modules-mysql:
