@@ -3,6 +3,11 @@ package command
 import (
 	"context"
 	"fmt"
+	"net"
+	"os"
+	"os/signal"
+	"syscall"
+
 	gqlhandler "github.com/99designs/gqlgen/graphql/handler"
 	"github.com/cyberwo1f/go-and-react-graphql-example/api_mysql/pkg/config"
 	"github.com/cyberwo1f/go-and-react-graphql-example/api_mysql/pkg/graph"
@@ -15,10 +20,6 @@ import (
 	"github.com/cyberwo1f/go-and-react-graphql-example/api_mysql/pkg/version"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
-	"net"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 const (
