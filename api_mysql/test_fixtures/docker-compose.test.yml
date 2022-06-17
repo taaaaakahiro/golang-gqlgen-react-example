@@ -12,4 +12,4 @@ services:
       MYSQL_ROOT_PASSWORD: hoge123
       MYSQL_USER: test
       MYSQL_PASSWORD: test
-    platform: linux/amd64 # M1 Macの場合
+    # platform: linux/amd64 # M1 Macの場合
